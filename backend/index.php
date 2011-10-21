@@ -3,6 +3,7 @@ include "../clases/login/try.php";
 ?>
 <a href="display.php">Mapa con todas las ordenes</a> | 
 <a href="print.php">Detalles de todas las ordenes</a> | 
+<a href="limpia.php">Preparar para el siguiente dia</a> |
 <a href="../clases/logout.php">Logout</a><br />
 El Menu
 <?include "../clases/menu.php";

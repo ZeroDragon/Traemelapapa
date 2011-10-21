@@ -9,6 +9,17 @@
     <direccion>Allende 24, 64, Cancun, QROO, México</direccion>
     <telefono>9987046431</telefono>
     <twitter>zerodragon</twitter>
-    <pass>abc123doremi</pass>
+    <pass>hola</pass>
+  </user>
+  <user>
+    <id>2</id>
+    <nombre>carlos</nombre>
+    <email>zrdrgn@gmail</email>
+    <lat>21.178821724822292</lat>
+    <lng>-86.81620008280333</lng>
+    <direccion>Allende 22, Donceles, Cancún, Quintana Roo, Mexico</direccion>
+    <telefono>12345</telefono>
+    <twitter/>
+    <pass>yv5m7kka</pass>
   </user>
 </users>
