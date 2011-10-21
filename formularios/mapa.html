@@ -1,0 +1,158 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100% }
+</style>
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?v=3.3&sensor=true">
+</script>
+<script type="text/javascript">
+function drawCircle(point, radius) { 
+	var d2r = Math.PI / 180;   // degrees to radians 
+	var r2d = 180 / Math.PI;   // radians to degrees 
+	var earthsradius = 6371; // 3963 is the radius of the earth in miles
+	var points = 60; 
+	// find the raidus in lat/lon 
+	var rlat = (radius / earthsradius) * r2d; 
+	var rlng = rlat / Math.cos(point.lat() * d2r); 
+	var extp = new Array(); 
+	for (var i=0; i < points+1; i++) // one extra here makes sure we connect
+	{ 
+		var theta = Math.PI * (i / (points/2)); 
+		ey = point.lng() + (rlng * Math.cos(theta)); // center a + radius x * cos(theta) 
+		ex = point.lat() + (rlat * Math.sin(theta)); // center b + radius y * sin(theta) 
+		extp.push(new google.maps.LatLng(ex, ey)); 
+	} 
+	return extp;
+}
+function dona(latte, moka, out, inn, color, click){
+	var donut = new google.maps.Polygon({
+	paths: [drawCircle(new google.maps.LatLng(latte,moka), out),
+			drawCircle(new google.maps.LatLng(latte,moka), inn)],
+	strokeColor: color,
+	strokeOpacity: 0.0,
+	strokeWeight: 1,
+	fillColor: color,
+	fillOpacity: 0.3,
+	clickable: click,
+	zIndex:0,
+	});
+	google.maps.event.addListener(donut, 'rightclick', function(event) {
+		maker(event.latLng.lat().toString(),event.latLng.lng().toString(),false);
+	});
+	donut.setMap(map);
+}
+function alcance(latte,moka){
+	var circulo = new google.maps.Circle({ //centro azulito
+		center: new google.maps.LatLng(latte, moka), 
+		map: map, 
+		radius: 2000,
+		strokeColor: "#00E",
+		strokeOpacity: 0.0,
+		strokeWeight: 1,
+		fillColor: "#00E",
+		fillOpacity: 0.2,
+		clickable: true,
+		zIndex:0,
+	});
+	google.maps.event.addListener(circulo, 'rightclick', function(event) {
+		maker(event.latLng.lat().toString(),event.latLng.lng().toString(),false);
+	});
+	dona(latte, moka, 5, 4, "#F00", false); //dona roja
+	dona(latte, moka, 4, 3, "#FFE600", true); //dona amarilla
+	dona(latte, moka, 3, 2, "#0A0", true); //dona verde
+}
+var map;
+function initialize(latte,moka) {
+	var latlng = new google.maps.LatLng(latte, moka);
+	var myOptions = {
+		zoom: 13,
+		center: latlng,
+		clickable:false,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	google.maps.event.addListener(map, 'rightclick', function(event) {
+		
+	});
+	alcance(21.161764095633437, -86.83396203173828);
+}
+function maker(lat, lon, permanent){
+	latlng = new google.maps.LatLng(lat, lon);
+	var marker = new google.maps.Marker({
+	position: latlng,
+	map: map,
+	animation: google.maps.Animation.DROP,
+	draggable: true,
+	});
+	marker.setTitle(name.toString());
+	attachSecretMessage(marker, permanent);
+}
+function attachSecretMessage(marker, permanent) {
+	var geocoder = new google.maps.Geocoder();
+	var infowindow = new google.maps.InfoWindow();
+	geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			if (results[0]) {
+				infowindow.setContent("<h5>" + results[0].formatted_address + '</h5><form method="POST" action="index.php"><input type="hidden" name="direccion" id="direccion", value="'+ results[0].formatted_address +'"><input type="hidden" name="lat" id="lat", value="'+ marker.getPosition().lat().toString() +'"><input type="hidden" name="lng" id="lng", value="'+ marker.getPosition().lng().toString() +'"><input type="submit" value="Click para guardar"></form>');
+				infowindow.open(map, marker);
+				map.panTo(marker.getPosition());
+			}
+		}
+    });
+	google.maps.event.addListener(marker, 'dragend', function() {
+	geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			if (results[0]) {
+				infowindow.setContent("<h5>" + results[0].formatted_address + '</h5><form method="POST" action="index.php"><input type="hidden" name="direccion" id="direccion", value="'+ results[0].formatted_address +'"><input type="hidden" name="lat" id="lat", value="'+ marker.getPosition().lat().toString() +'"><input type="hidden" name="lng" id="lng", value="'+ marker.getPosition().lng().toString() +'"><input type="submit" value="Click para guardar"></form>');
+				map.panTo(marker.getPosition());
+			}
+		}
+    });
+	});
+	google.maps.event.addListener(marker, 'click', function() {
+		map.panTo(marker.getPosition());
+		infowindow.open(map,marker);
+	});
+	if(permanent == false){
+		google.maps.event.addListener(marker, 'rightclick', function() {
+			marker.setMap(null);
+			infowindow.close();
+		});
+	}
+}
+</script>
+</head>
+<body onLoad="initialize(21.159292271255293,-86.8460155182129)">
+	<div id="map_canvas" style="width:80%; height:100%; float:left;"></div>
+	<div id="menu" style="width:20%; height:100%; float:left;">
+	<div style="width:95%; height:100%; float:right; word-break:break-word;">
+	<b>Instrucciones</b><br>
+	Busca en el mapa donde quieres que te entreguemos la comida, da click derecho para poner un marcador.<br>Puedes arrastrar el marcador para ajustarlo exactamente a la direcci&oacute;n. Cuando est&eacute; correcto, da click en el boton para guardar.
+	<hr>
+	Zonas de entrega:<br>
+	<table>
+	<tr>
+	<td></td><td></td>
+	</tr>
+	<tr>
+	<td style="width:40px; background-color:RGBA(0,0,170,0.2);"></td><td>Zona azul: Entrega gratuita a su domicilio</td>
+	</tr>
+	<tr>
+	<td style="width:40px; background-color:RGBA(0,170,0,0.3);"></td><td>Zona verde: Entrega gratuita con 2 o mas ordenes o $5 por la entrega a domicilio</td>
+	</tr>
+	<tr>
+	<td style="width:40px; background-color:RGBA(255,230,0,0.3);"></td><td>Zona amarilla: Entrega gratuita con 3 o mas ordenes o $10 por la entrega a domicilio</td>
+	</tr>
+	<tr>
+	<td style="width:40px; background-color:RGBA(255,0,0,0.3);"></td><td>Zona roja y demas: Sorry no entregamos tan lejos :(</td>
+	</tr>
+	</table>
+	</div>
+	</div>
+</body>
+</html>

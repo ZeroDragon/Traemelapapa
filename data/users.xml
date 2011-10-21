@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+    <id>1</id>
+    <nombre>Carlos Flores</nombre>
+    <email>zr.drgn@gmail.com</email>
+    <lat>21.17875950484401</lat>
+    <lng>-86.81615352630615</lng>
+    <direccion>Allende 24, 64, Cancun, QROO, México</direccion>
+    <telefono>9987046431</telefono>
+    <twitter>zerodragon</twitter>
+    <pass>abc123doremi</pass>
+  </user>
+</users>

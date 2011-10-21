@@ -1,0 +1,131 @@
+body{
+	background: url("http://a0.twimg.com/profile_background_images/187981939/x184acb3c898ad18bae65ada3fe42750.jpg");
+}
+.elbg{
+	background-color:rgba(255,255,255,0.8);
+}
+h2, h1{
+	color: #456;
+}
+h1 a{
+	color: #456;
+	text-decoration:none;
+}
+.heading3, .heading3 a{
+	color: #456;
+	margin:10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+.heading3 a{
+	margin:0px;
+	text-decoration:none;
+}
+.heading3 a:hover{
+	color: #789;
+}
+input, select, .input{
+	width:300px;
+	height:47px;
+	border: 1px solid #000;
+	font-size: 30px;
+	font-weight: bold;
+	color: #abc;
+}
+.precio{
+	font-size:70px;
+	color: #a00;
+}
+.input, .titulo{
+	font-size: 15px;
+	border: 0px solid #000;
+	margin:0px;
+	color:123;
+	word-break:break-word;
+}
+.input a{
+	color:#789;
+	text-decoration:none;
+}
+.input a:hover{
+	color:#456;
+}
+.titulo{
+	color:#A00;
+	font-weight:bold;
+}
+.enviar{
+	background-color: #090;
+	border: 2px groove #090;
+	color: #fff;
+}
+.enviar:hover{
+	background-color: #050;
+	border: 2px groove #050;
+}
+.logout{
+	background-color: #900;
+	border: 2px groove #900;
+	color: #fff;
+}
+.logout:hover{
+	background-color: #500;
+	border: 2px groove #500;
+}
+.normal{
+	background-color: #789;
+	border: 2px groove #789;
+	color: #fff;
+}
+.normal:hover{
+	background-color: #456;
+	border: 2px groove #456;
+}
+.checkbox, .radio, .number{
+	width:25px;
+	height:20px;
+	margin:0px;
+}
+.number{
+	width:40px;
+	height:40px;
+	border: 0px solid #000;
+	margin-right:2px;
+}
+.address, .address-doble{
+	width:300px;
+	height:54px;
+	margin:0px;
+	border: 1px solid #000;
+}.address-doble{
+	width:600px;
+	height:100px;
+}
+.mapita{
+	width:298px;
+	height:150px;
+	text-align:center;
+	overflow:hidden;
+	background-color:#abc;
+	border: 1px solid #000;
+	margin:0px;
+}
+.link-mapas{
+	position:relative;
+	top:-180px;
+	left:0px;
+	font-size:30px;
+	color:#000;
+}
+.preview{
+	opacity:0.4;
+	filter:alpha(opacity=40);
+	position:relative;
+	top:-20px;
+}
+.minitabla{
+	width:300px;
+	border: 1px solid #000;
+	margin:0px;
+	background-color: #fff;
+}
